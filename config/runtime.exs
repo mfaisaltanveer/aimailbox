@@ -53,6 +53,16 @@ if config_env() == :prod do
 
   config :aimailbox, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
 
+  # Build allowed origins list
+  allowed_origins = [
+    "https://#{host}",
+    "//#{host}",
+    "https://aimailbox.onrender.com",
+    "//aimailbox.onrender.com"
+  ]
+
+  IO.puts("Phoenix will accept WebSocket connections from: #{inspect(allowed_origins)}")
+
   config :aimailbox, AimailboxWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],
     http: [
@@ -64,10 +74,7 @@ if config_env() == :prod do
       port: port
     ],
     secret_key_base: secret_key_base,
-    check_origin: [
-      "https://#{host}",
-      "//#{host}"
-    ]
+    check_origin: allowed_origins
 
   # ## SSL Support
   #
