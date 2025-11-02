@@ -3,6 +3,9 @@ set -eu
 
 cd -P -- "$(dirname -- "$0")"
 
+echo "Creating database..."
+./aimailbox eval "Aimailbox.Release.create"
+
 echo "Running migrations..."
 ./aimailbox eval "Aimailbox.Release.migrate"
 
