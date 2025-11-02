@@ -29,7 +29,7 @@ defmodule Aimailbox.Release do
   defp ensure_repo_created(repo) do
     IO.puts("Creating database for #{inspect(repo)}")
 
-    case repo.__adapter__.storage_up(repo.config) do
+    case repo.__adapter__().storage_up(repo.config) do
       :ok ->
         IO.puts("Database created successfully")
         :ok
